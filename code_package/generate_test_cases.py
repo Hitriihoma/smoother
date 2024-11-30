@@ -30,7 +30,7 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
     '''
     def save_to_json(data_dir, name, date_array, data_array, id_array):
         with open(f'{data_dir}\{name}.json', 'w', encoding='utf-8') as f:
-            json.dump({"data": {"date": date_array, "x": data_array.tolist(), "uniq_id":id_array }}, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))  # https://stackoverflow.com/a/37795053
+            json.dump({"data": {"date": dict(enumerate(date_array)), "x": dict(enumerate(data_array.tolist())), "uniq_id":dict(enumerate(id_array))}}, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))  # https://stackoverflow.com/a/37795053
 
     np.random.seed(0) 
     
