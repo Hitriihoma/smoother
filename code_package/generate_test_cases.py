@@ -10,6 +10,7 @@ import numpy as np
 import json
 import os
 from pathlib import Path
+from datetime import datetime
 
 
     
@@ -38,7 +39,8 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
         Path(data_dir).mkdir(parents=True, exist_ok=True)
     
     # вспомогательные данные
-    date = np.arange(np.datetime64("2024-01-01"), np.datetime64("2024-04-10"), np.timedelta64(1, "D")).astype(str).tolist()
+    date = np.arange(np.datetime64("2024-01-01"), np.datetime64("2024-04-10"), np.timedelta64(1, "D")).astype(datetime)
+    date = list(map(lambda x: x.strftime('%Y-%m-%dT%H:%M:%S.000'),date))
     uniq_id = np.arange(1,101,1).tolist()
     
     # базовый уровень
