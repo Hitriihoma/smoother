@@ -55,6 +55,7 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
         with open(data_path, 'r') as file:
             data = json.load(file)
         df = pd.DataFrame.from_dict(data['data'])
+        name = data['properties']['name']
         
         # Конвертировать строчную дату в тип дата
         df.loc[:, 'date'] = pd.to_datetime(df["date"], format='%Y-%m-%dT%H:%M:%S.%f')
@@ -73,6 +74,7 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
         ax.plot(x, y,  marker='o', label='Исходные данные')
         ax.plot(x_tr, y_tr,  marker='o', label='Обработанные данные')
         ax.legend()
+        ax.set_title(name)
         plt.savefig(os.path.join(save_dir,f'{os.path.splitext(filename)[0]}.png'))
         plt.close()
         
