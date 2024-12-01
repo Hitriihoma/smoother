@@ -10,7 +10,6 @@ import sys
 import json
 import pandas as pd
 from matplotlib import pyplot as plt
-import seaborn as sns
 
 try:
     from smoother.code_package.moving_average import MovingAverage
