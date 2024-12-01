@@ -28,9 +28,11 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
     None.
 
     '''
-    def save_to_json(data_dir, name, date_array, data_array, id_array):
-        with open(f'{data_dir}\{name}.json', 'w', encoding='utf-8') as f:
-            json.dump({"data": {"date": dict(enumerate(date_array)), "x": dict(enumerate(data_array.tolist())), "uniq_id":dict(enumerate(id_array))}}, f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))  # https://stackoverflow.com/a/37795053
+    def save_to_json(data_dir, filename, date_array, data_array, id_array, name):
+        with open(f'{data_dir}\{filename}.json', 'w', encoding='utf-8') as f:
+            json.dump({"data": {"date": dict(enumerate(date_array)), "x": dict(enumerate(data_array.tolist())), "uniq_id":dict(enumerate(id_array))}
+                       , "properties": {"name": name} }
+                       , f, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))  # https://stackoverflow.com/a/37795053
 
     np.random.seed(0) 
     
@@ -81,96 +83,96 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
     # малая дисперсия
     ## нет тренда
     dl_tn_on = base_array + dispersion_low
-    save_to_json(data_dir, name='dl_tn_on', date_array=date, data_array=dl_tn_on, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_on', date_array=date, data_array=dl_tn_on, id_array=uniq_id, name='dispersion_low')
     dl_tn_olr = base_array + dispersion_low + outliers_rare
-    save_to_json(data_dir, name='dl_tn_olr', date_array=date, data_array=dl_tn_olr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_olr', date_array=date, data_array=dl_tn_olr, id_array=uniq_id, name='dispersion_low + outliers_rare')
     dl_tn_olf = base_array + dispersion_low + outliers_frequently
-    save_to_json(data_dir, name='dl_tn_olf', date_array=date, data_array=dl_tn_olf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_olf', date_array=date, data_array=dl_tn_olf, id_array=uniq_id, name='dispersion_low + outliers_frequently')
     dl_tn_olc = base_array + dispersion_low + outliers_close
-    save_to_json(data_dir, name='dl_tn_olc', date_array=date, data_array=dl_tn_olc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_olc', date_array=date, data_array=dl_tn_olc, id_array=uniq_id, name='dispersion_low + outliers_close')
     dl_tn_ohr = base_array + dispersion_low + outliers_rare*10
-    save_to_json(data_dir, name='dl_tn_ohr', date_array=date, data_array=dl_tn_ohr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_ohr', date_array=date, data_array=dl_tn_ohr, id_array=uniq_id, name='dispersion_low + outliers_rare*10')
     dl_tn_ohf = base_array + dispersion_low + outliers_frequently*10
-    save_to_json(data_dir, name='dl_tn_ohf', date_array=date, data_array=dl_tn_ohf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_ohf', date_array=date, data_array=dl_tn_ohf, id_array=uniq_id, name='dispersion_low + outliers_frequently*10')
     dl_tn_ohc = base_array + dispersion_low + outliers_close*10
-    save_to_json(data_dir, name='dl_tn_ohc', date_array=date, data_array=dl_tn_ohc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tn_ohc', date_array=date, data_array=dl_tn_ohc, id_array=uniq_id, name='dispersion_low + outliers_close*10')
     ## линейный тренд
     dl_tl_on = base_array + dispersion_low + trend_linear
-    save_to_json(data_dir, name='dl_tl_on', date_array=date, data_array=dl_tl_on, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_on', date_array=date, data_array=dl_tl_on, id_array=uniq_id, name='dispersion_low + trend_linear')
     dl_tl_olr = base_array + dispersion_low + trend_linear + outliers_rare
-    save_to_json(data_dir, name='dl_tl_olr', date_array=date, data_array=dl_tl_olr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_olr', date_array=date, data_array=dl_tl_olr, id_array=uniq_id, name='dispersion_low + trend_linear + outliers_rare')
     dl_tl_olf = base_array + dispersion_low + trend_linear + outliers_frequently
-    save_to_json(data_dir, name='dl_tl_olf', date_array=date, data_array=dl_tl_olf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_olf', date_array=date, data_array=dl_tl_olf, id_array=uniq_id, name='dispersion_low + trend_linear + outliers_frequently')
     dl_tl_olc = base_array + dispersion_low + trend_linear + outliers_close
-    save_to_json(data_dir, name='dl_tl_olc', date_array=date, data_array=dl_tl_olc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_olc', date_array=date, data_array=dl_tl_olc, id_array=uniq_id, name='dispersion_low + trend_linear + outliers_close')
     dl_tl_ohr = base_array + dispersion_low + trend_linear + outliers_rare*10
-    save_to_json(data_dir, name='dl_tl_ohr', date_array=date, data_array=dl_tl_ohr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_ohr', date_array=date, data_array=dl_tl_ohr, id_array=uniq_id, name='dispersion_low + trend_linear + outliers_rare*10')
     dl_tl_ohf = base_array + dispersion_low + trend_linear + outliers_frequently*10
-    save_to_json(data_dir, name='dl_tl_ohf', date_array=date, data_array=dl_tl_ohf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_ohf', date_array=date, data_array=dl_tl_ohf, id_array=uniq_id, name='dispersion_low + trend_linear + outliers_frequently*10')
     dl_tl_ohc = base_array + dispersion_low + trend_linear + outliers_close*10
-    save_to_json(data_dir, name='dl_tl_ohc', date_array=date, data_array=dl_tl_ohc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_tl_ohc', date_array=date, data_array=dl_tl_ohc, id_array=uniq_id, name='dispersion_low + trend_linear + outliers_close*10')
     ## экспоненциальный тренд
     dl_te_on = base_array + dispersion_low + trend_exponential
-    save_to_json(data_dir, name='dl_te_on', date_array=date, data_array=dl_te_on, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_on', date_array=date, data_array=dl_te_on, id_array=uniq_id, name='dispersion_low + trend_exponential')
     dl_te_olr = base_array + dispersion_low + trend_exponential + outliers_rare
-    save_to_json(data_dir, name='dl_te_olr', date_array=date, data_array=dl_te_olr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_olr', date_array=date, data_array=dl_te_olr, id_array=uniq_id, name='dispersion_low + trend_exponential + outliers_rare')
     dl_te_olf = base_array + dispersion_low + trend_exponential + outliers_frequently
-    save_to_json(data_dir, name='dl_te_olf', date_array=date, data_array=dl_te_olf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_olf', date_array=date, data_array=dl_te_olf, id_array=uniq_id, name='dispersion_low + trend_exponential + outliers_frequently')
     dl_te_olc = base_array + dispersion_low + trend_exponential + outliers_close
-    save_to_json(data_dir, name='dl_te_olc', date_array=date, data_array=dl_te_olc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_olc', date_array=date, data_array=dl_te_olc, id_array=uniq_id, name='dispersion_low + trend_exponential + outliers_close')
     dl_te_ohr = base_array + dispersion_low + trend_exponential + outliers_rare*10
-    save_to_json(data_dir, name='dl_te_ohr', date_array=date, data_array=dl_te_ohr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_ohr', date_array=date, data_array=dl_te_ohr, id_array=uniq_id, name='dispersion_low + trend_exponential + outliers_rare*10')
     dl_te_ohf = base_array + dispersion_low + trend_exponential + outliers_frequently*10
-    save_to_json(data_dir, name='dl_te_ohf', date_array=date, data_array=dl_te_ohf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_ohf', date_array=date, data_array=dl_te_ohf, id_array=uniq_id, name='dispersion_low + trend_exponential + outliers_frequently*10')
     dl_te_ohc = base_array + dispersion_low + trend_exponential + outliers_close*10
-    save_to_json(data_dir, name='dl_te_ohc', date_array=date, data_array=dl_te_ohc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dl_te_ohc', date_array=date, data_array=dl_te_ohc, id_array=uniq_id, name='dispersion_low + trend_exponential + outliers_close*10')
     
     # большая дисперсия
     ## нет тренда
     dh_tn_on = base_array + dispersion_high
-    save_to_json(data_dir, name='dh_tn_on', date_array=date, data_array=dh_tn_on, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_on', date_array=date, data_array=dh_tn_on, id_array=uniq_id, name='dispersion_high')
     dh_tn_olr = base_array + dispersion_high + outliers_rare
-    save_to_json(data_dir, name='dh_tn_olr', date_array=date, data_array=dh_tn_olr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_olr', date_array=date, data_array=dh_tn_olr, id_array=uniq_id, name='dispersion_high + outliers_rare')
     dh_tn_olf = base_array + dispersion_high + outliers_frequently
-    save_to_json(data_dir, name='dh_tn_olf', date_array=date, data_array=dh_tn_olf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_olf', date_array=date, data_array=dh_tn_olf, id_array=uniq_id, name='dispersion_high + outliers_frequently')
     dh_tn_olc = base_array + dispersion_high + outliers_close
-    save_to_json(data_dir, name='dh_tn_olc', date_array=date, data_array=dh_tn_olc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_olc', date_array=date, data_array=dh_tn_olc, id_array=uniq_id, name='dispersion_high + outliers_close')
     dh_tn_ohr = base_array + dispersion_high + outliers_rare*10
-    save_to_json(data_dir, name='dh_tn_ohr', date_array=date, data_array=dh_tn_ohr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_ohr', date_array=date, data_array=dh_tn_ohr, id_array=uniq_id, name='dispersion_high + outliers_rare*10')
     dh_tn_ohf = base_array + dispersion_high + outliers_frequently*10
-    save_to_json(data_dir, name='dh_tn_ohf', date_array=date, data_array=dh_tn_ohf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_ohf', date_array=date, data_array=dh_tn_ohf, id_array=uniq_id, name='dispersion_high + outliers_frequently*10')
     dh_tn_ohc = base_array + dispersion_high + outliers_close*10
-    save_to_json(data_dir, name='dh_tn_ohc', date_array=date, data_array=dh_tn_ohc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tn_ohc', date_array=date, data_array=dh_tn_ohc, id_array=uniq_id, name='dispersion_high + outliers_close*10')
     ## линейный тренд
     dh_tl_on = base_array + dispersion_high + trend_linear
-    save_to_json(data_dir, name='dh_tl_on', date_array=date, data_array=dh_tl_on, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_on', date_array=date, data_array=dh_tl_on, id_array=uniq_id, name='dispersion_high + trend_linear')
     dh_tl_olr = base_array + dispersion_high + trend_linear + outliers_rare
-    save_to_json(data_dir, name='dh_tl_olr', date_array=date, data_array=dh_tl_olr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_olr', date_array=date, data_array=dh_tl_olr, id_array=uniq_id, name='dispersion_high + trend_linear + outliers_rare')
     dh_tl_olf = base_array + dispersion_high + trend_linear + outliers_frequently
-    save_to_json(data_dir, name='dh_tl_olf', date_array=date, data_array=dh_tl_olf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_olf', date_array=date, data_array=dh_tl_olf, id_array=uniq_id, name='dispersion_high + trend_linear + outliers_frequently')
     dh_tl_olc = base_array + dispersion_high + trend_linear + outliers_close
-    save_to_json(data_dir, name='dh_tl_olc', date_array=date, data_array=dh_tl_olc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_olc', date_array=date, data_array=dh_tl_olc, id_array=uniq_id, name='dispersion_high + trend_linear + outliers_close')
     dh_tl_ohr = base_array + dispersion_high + trend_linear + outliers_rare*10
-    save_to_json(data_dir, name='dh_tl_ohr', date_array=date, data_array=dh_tl_ohr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_ohr', date_array=date, data_array=dh_tl_ohr, id_array=uniq_id, name='dispersion_high + trend_linear + outliers_rare*10')
     dh_tl_ohf = base_array + dispersion_high + trend_linear + outliers_frequently*10
-    save_to_json(data_dir, name='dh_tl_ohf', date_array=date, data_array=dh_tl_ohf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_ohf', date_array=date, data_array=dh_tl_ohf, id_array=uniq_id, name='dispersion_high + trend_linear + outliers_frequently*10')
     dh_tl_ohc = base_array + dispersion_high + trend_linear + outliers_close*10
-    save_to_json(data_dir, name='dh_tl_ohc', date_array=date, data_array=dh_tl_ohc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_tl_ohc', date_array=date, data_array=dh_tl_ohc, id_array=uniq_id, name=' dispersion_high + trend_linear + outliers_close*10')
     ## экспоненциальный тренд
     dh_te_on = base_array + dispersion_high + trend_exponential
-    save_to_json(data_dir, name='dh_te_on', date_array=date, data_array=dh_te_on, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_on', date_array=date, data_array=dh_te_on, id_array=uniq_id, name='dispersion_high + trend_exponential')
     dh_te_olr = base_array + dispersion_high + trend_exponential + outliers_rare
-    save_to_json(data_dir, name='dh_te_olr', date_array=date, data_array=dh_te_olr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_olr', date_array=date, data_array=dh_te_olr, id_array=uniq_id, name='dispersion_high + trend_exponential + outliers_rare')
     dh_te_olf = base_array + dispersion_high + trend_exponential + outliers_frequently
-    save_to_json(data_dir, name='dh_te_olf', date_array=date, data_array=dh_te_olf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_olf', date_array=date, data_array=dh_te_olf, id_array=uniq_id, name='dispersion_high + trend_exponential + outliers_frequently')
     dh_te_olc = base_array + dispersion_high + trend_exponential + outliers_close
-    save_to_json(data_dir, name='dh_te_olc', date_array=date, data_array=dh_te_olc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_olc', date_array=date, data_array=dh_te_olc, id_array=uniq_id, name='dispersion_high + trend_exponential + outliers_close')
     dh_te_ohr = base_array + dispersion_high + trend_exponential + outliers_rare*10
-    save_to_json(data_dir, name='dh_te_ohr', date_array=date, data_array=dh_te_ohr, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_ohr', date_array=date, data_array=dh_te_ohr, id_array=uniq_id, name='dispersion_high + trend_exponential + outliers_rare*10')
     dh_te_ohf = base_array + dispersion_high + trend_exponential + outliers_frequently*10
-    save_to_json(data_dir, name='dh_te_ohf', date_array=date, data_array=dh_te_ohf, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_ohf', date_array=date, data_array=dh_te_ohf, id_array=uniq_id, name='dispersion_high + trend_exponential + outliers_frequently*10')
     dh_te_ohc = base_array + dispersion_high + trend_exponential + outliers_close*10
-    save_to_json(data_dir, name='dh_te_ohc', date_array=date, data_array=dh_te_ohc, id_array=uniq_id)
+    save_to_json(data_dir, filename='dh_te_ohc', date_array=date, data_array=dh_te_ohc, id_array=uniq_id, name='dispersion_high + trend_exponential + outliers_close*10')
 
 if __name__ == "__main__":
     generate_test_cases()
