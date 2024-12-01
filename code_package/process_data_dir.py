@@ -69,7 +69,7 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
         
         # построить график, сохранить в ./results
         save_dir = str(os.path.join(os.path.dirname(os.getcwd()), 'results'))
-        fig = plt.figure(figsize=(10,20))
+        fig = plt.figure(figsize=(30,10))
         ax = fig.add_subplot(111)
         ax.plot(x, y,  marker='o', label='Исходные данные')
         ax.plot(x_tr, y_tr,  marker='o', label='Обработанные данные')
