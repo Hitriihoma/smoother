@@ -27,6 +27,8 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
     ----------
     wdir : string, optional
         Путь к директории с файлами для обработки. The default is str(os.path.join(os.path.dirname(os.getcwd()), 'data')).
+    window : integer
+        Окно скользящего среднего. The default is None.
     drop_outlier : boolean, optional
         Использовать ли убирание одного выброса при расчёте среднего значения подвыборки. The default is False.
 
