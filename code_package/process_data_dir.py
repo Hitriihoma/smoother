@@ -80,8 +80,7 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
         plt.close()
         
 if __name__ == "__main__":
-    print('Введите окно скользящего среднего:')
-    window = int(input())
+    window = int(input('Введите окно скользящего среднего:\n'))
     drop_outlier_input = input('Требуется ли убирать выброс в подвыборках [True, False]:\n')
     if drop_outlier_input == 'True':
         drop_outlier = True
