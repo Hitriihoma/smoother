@@ -19,7 +19,7 @@ except:
     sys.path.append(add_to_path)
     from smoother.code_package.moving_average import MovingAverage
 
-def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')), window=None):
+def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')), window=None, drop_outlier=False):
     '''
     Обработать данные в директории
 
@@ -27,6 +27,8 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
     ----------
     wdir : string, optional
         Путь к директории с файлами для обработки. The default is str(os.path.join(os.path.dirname(os.getcwd()), 'data')).
+    drop_outlier : boolean, optional
+        Использовать ли убирание одного выброса при расчёте среднего значения подвыборки. The default is False.
 
     Returns
     -------
@@ -64,7 +66,7 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
         y = df['x'].to_numpy()
         
         # Обработать выборки
-        x_tr, y_tr = smoother.transform(x=x, y=y)
+        x_tr, y_tr = smoother.transform(x=x, y=y, drop_outlier=drop_outlier)
         
         # построить график, сохранить в ./results
         save_dir = str(os.path.join(os.path.dirname(os.getcwd()), 'results'))
@@ -80,4 +82,11 @@ def process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')
 if __name__ == "__main__":
     print('Введите окно скользящего среднего:')
     window = int(input())
-    process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')), window=window)
+    drop_outlier_input = input('Требуется ли убирать выброс в подвыборках [True, False]:\n')
+    if drop_outlier_input == 'True':
+        drop_outlier = True
+    elif drop_outlier_input == 'False':
+        drop_outlier = False
+    else:
+        raise ValueError('Некорректное значение drop_outlier_input (требуется ли убирать выбросы')
+    process_data_dir(wdir=str(os.path.join(os.path.dirname(os.getcwd()), 'data')), window=window, drop_outlier=drop_outlier)
