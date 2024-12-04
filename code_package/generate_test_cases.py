@@ -54,7 +54,7 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
     
     # тренд
     trend_linear = np.append(np.full(49,0), np.linspace(0,100,51)) # np.linspace(0,99,100)
-    trend_exponential = np.exp(np.linspace(0,7,100))
+    trend_exponential = np.exp(np.linspace(1,6,100))
     
     # выбросы
     outliers_rare = np.zeros(100)
