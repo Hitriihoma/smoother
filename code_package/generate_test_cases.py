@@ -58,10 +58,11 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
     
     # выбросы
     outliers_rare = np.zeros(100)
-    # сделать элементы 25, 50, 75 выбросам
-    outliers_rare[24] = 10
-    outliers_rare[49] = -10
-    outliers_rare[74] = 10
+    # сделать элементы 20? 40, 60, 80 выбросами
+    outliers_rare[20] = 10
+    outliers_rare[40] = -10
+    outliers_rare[60] = 10
+    outliers_rare[80] = -10
     
     outliers_frequently = np.zeros(100)
     # сделать каждый 5й элемент выбросом
