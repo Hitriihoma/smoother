@@ -53,7 +53,7 @@ def generate_test_cases(data_dir = os.path.join(Path.cwd().parent, 'data')):
     dispersion_high = np.random.rand(100)*100
     
     # тренд
-    trend_linear = np.linspace(0,99,100)
+    trend_linear = np.append(np.full(49,0), np.linspace(0,100,51)) # np.linspace(0,99,100)
     trend_exponential = np.exp(np.linspace(0,7,100))
     
     # выбросы
