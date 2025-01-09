@@ -64,7 +64,46 @@ class DES():
             b_t = gamma * (S[t] - S[t-1]) + (1 - gamma) * b[t-1] # 0 <= gamma <= 1
             b.append(b_t)
             
-        return S
+        return S, b
+    
+    def forecast(self, y, alpha=None, gamma=None, m=None):
+        """
+        Engineering Statistics Handbook
+        Forecasting with Double Exponential Smoothing(LASP)
+        https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc434.htm
+        
+        The one-period-ahead forecast is given by: F_(t+1) = S_t + b_t
+        The m-periods-ahead forecast is given by: F_(t+m) = S_t + m * b_t
+        
+        # Test from https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc434.htm
+        # Input
+        y = [6.4,  5.6,  7.8,  8.8,  11,  11.6,  16.7,  15.3,  21.6,  22.4]
+        alpha = 0.3623
+        gamma = 1.0
+        S[0] = y[0] = 6.5
+        b[0] = 1/3 * ((y[1]-y[0]) + (y[2]-y[1]) + (y[3]-y[2]))
+        m = 5 
+        # Test output
+        # Periods 11, 12, 13, 14, 16
+        F = [25.8, 28.7, 31.7, 34.6, 37.6]
+        # My output
+        F= [25.771895748992584, 28.728732991768446, 31.685570234544308, 34.64240747732016, 37.599244720096024]
+        """
+        # Get alpha and gamme from class attrinute
+        alpha = self.alpha if alpha is None else alpha
+        if alpha is None or alpha < 0 or alpha > 1:
+            raise ValueError("For parameter alpha must be 0 <= alpha <= 1")
+        gamma = self.gamma if gamma is None else gamma
+        if gamma is None or gamma < 0 or gamma > 1:
+            raise ValueError("For parameter gamma must be 0 <= gamma <= 1")
+        
+        F = []
+        # Smooth every point of list <y>
+        S, b = self._calculate_des(y, alpha, gamma)
+        # Forecast m periods
+        F = [S[-1] + i * b[-1] for i in range(1,m+1)]
+        
+        return F
         
     def transform(self, x, y=None, alpha=None, gamma=None):
         # Get alpha and gamme from class attrinute
@@ -77,9 +116,9 @@ class DES():
         
         if y is not None:
             # Process every point of list <y>
-            S = self._calculate_des(y, alpha, gamma)
+            S, _ = self._calculate_des(y, alpha, gamma)
             return x, S
         else:                
             # Process every point of list <x>
-            S = self._calculate_des(x, alpha, gamma)
+            S, _ = self._calculate_des(x, alpha, gamma)
             return S
