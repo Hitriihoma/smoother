@@ -9,7 +9,7 @@ import numpy as np
 import copy
 
 class MovingAverage():
-    def __init__(self, window, direction='both'):
+    def __init__(self, window, drop_outlier, direction='both'):
         self.window = window
         self.direction = direction
         
@@ -88,7 +88,7 @@ class MovingAverage():
             return None
         
     
-    def transform(self, x, y=None, window=None, drop_outlier=False, iqr_coef=1.5):
+    def transform(self, x, y=None, window=None, drop_outlier=None, iqr_coef=1.5):
         '''
         Передать данные в функцию и обработать их
         можно передавать только x - тогда возвращаем только обработанный x
@@ -123,6 +123,11 @@ class MovingAverage():
         
         # получение window из аттрубитов класса
         window = self.window if window is None else window
+        
+        # Получение drop_outlier из аттрибутов класса
+        drop_outlier = self.drop_outlier if drop_outlier is None else drop_outlier
+        if type(drop_outlier) != bool:
+            raise ValueError("Значение drop_outlier должно быть типа bool")
        
         if y is not None:
             # обработка каждой точки <y>
