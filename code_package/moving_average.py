@@ -11,6 +11,7 @@ import copy
 class MovingAverage():
     def __init__(self, window, drop_outliers, direction='both'):
         self.window = window
+        self.drop_outliers = drop_outliers
         self.direction = direction
         
     def _calculate_sma(self, n, insert_list, k):
