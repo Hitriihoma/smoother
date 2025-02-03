@@ -9,7 +9,7 @@ import numpy as np
 import copy
 
 class MovingAverage():
-    def __init__(self, window, drop_outlier, direction='both'):
+    def __init__(self, window, drop_outliers, direction='both'):
         self.window = window
         self.direction = direction
         
@@ -88,7 +88,7 @@ class MovingAverage():
             return None
         
     
-    def transform(self, x, y=None, window=None, drop_outlier=None, iqr_coef=1.5):
+    def transform(self, x, y=None, window=None, drop_outliers=None, iqr_coef=1.5):
         '''
         Передать данные в функцию и обработать их
         можно передавать только x - тогда возвращаем только обработанный x
@@ -102,7 +102,7 @@ class MovingAverage():
             Окно скользящего среднего.
         y : list-like, optional
             Данные, связанные с данными для обработки. The default is None.
-        drop_outlier : boolean, optional
+        drop_outliers : boolean, optional
             Использовать ли убирание одного выброса при расчёте среднего значения подвыборки. The default is False.
         iqr_coef : float, optional
             Коэффициент межквартильного размаха. IQR = Q_0.75 - Q_0.25. The default is 1.5.
@@ -124,14 +124,14 @@ class MovingAverage():
         # получение window из аттрубитов класса
         window = self.window if window is None else window
         
-        # Получение drop_outlier из аттрибутов класса
-        drop_outlier = self.drop_outlier if drop_outlier is None else drop_outlier
-        if type(drop_outlier) != bool:
-            raise ValueError("Значение drop_outlier должно быть типа bool")
+        # Получение drop_outliers из аттрибутов класса
+        drop_outliers = self.drop_outliers if drop_outliers is None else drop_outliers
+        if type(drop_outliers) != bool:
+            raise ValueError("Значение drop_outliers должно быть типа bool")
        
         if y is not None:
             # обработка каждой точки <y>
-            if drop_outlier:
+            if drop_outliers:
                 y_res = list(map(lambda value: self._calculate_sma_outlier(value, y, window, iqr_coef=iqr_coef), range(len(y))))
             else:
                 y_res = list(map(lambda value: self._calculate_sma(value, y, window), range(len(y))))
@@ -142,7 +142,7 @@ class MovingAverage():
             return x_res, y_res
         else:                
             # обработка каждой точки списка <x>
-            if drop_outlier:
+            if drop_outliers:
                 x_res = list(map(lambda value: self._calculate_sma_outlier(value, x, window, iqr_coef=iqr_coef), range(len(x))))
             else:
                 x_res = list(map(lambda value: self._calculate_sma(value, x, window), range(len(x))))
